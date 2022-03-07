@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+// import { GoogleAuthProvider } from './googleAuth/googleAuth';
 import './index.css';
-import App from './App';
 import reportWebVitals from './reportWebVitals';
-
+import AppRouter from './routers/components/AppRouter'
+import { Provider} from 'react-redux'
+import store from './redux/myStore'
 ReactDOM.render(
+<Provider store={store}>
   <React.StrictMode>
-    <App />
-  </React.StrictMode>,
+    <AppRouter />
+  </React.StrictMode>
+  </Provider>,
   document.getElementById('root')
 );
 

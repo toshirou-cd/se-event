@@ -1,0 +1,15 @@
+.content-wrapper{
+    display: grid;
+    grid-template-columns: 100px 150px 150px 50px 150px 150px;
+    gap: 2rem;
+    align-items: center;
+
+}
+.field-name{
+    grid-column-start: 2;
+    grid-column-end: 7;
+    width: 100%;
+}
+.label {
+    font-weight: 500;
+}
