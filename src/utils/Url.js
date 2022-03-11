@@ -26,6 +26,15 @@ const BASE_URL = {
         getEventRequestListforHM : URL_API + 'eventrequests/getpageeventrequestforheadmanager',
         getEventReqDetail : URL_API + 'eventrequests/geteventrequestdetail',
         updateEventRequest : URL_API + 'eventrequests/updateeventrequest',
+        getUserList : URL_API + 'userevents/getlistuserevent',
+        checkCode : URL_API + 'userevents/checkusercode'
+    },
+    user : {
+        getEventList : URL_API + 'events/getlisteventpresent',
+        getEventDetail : URL_API + 'events/geteventdetailforuser',
+        regisEvent : URL_API + 'userevents/adduserevent',
+        
+        
     },
     images : URL_API + 'images/getimgfrompost',
     file : URL_API + 'images/getfilefrompost',

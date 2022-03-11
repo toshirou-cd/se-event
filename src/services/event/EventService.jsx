@@ -22,6 +22,22 @@ export const getEventList = ( q,pageSize,statuss,page,date_up,date_down) =>  {
         console.log("err when getting event list : " + err)
     })
 }
+export const getEventListForUser = ( q,limitEven,date_up,date_down) =>  {
+    return axiosApiInstance.get(BASE_URL.user.getEventList,
+        {
+            params : {
+                searchname : q,
+                limitEven : limitEven,
+                date_up : date_up,
+                date_dow : date_down
+            }
+    })
+    .then((res) => {
+        return res.data
+    }).catch(err => {
+        console.log("err when getting event list for user : " + err)
+    })
+}
 export const getGroupEventList = ( q,pageSize,statuss,page,date_up,date_down) =>  {
     return axiosApiInstance.get(BASE_URL.manager.getGroupEvent,
         {
@@ -40,6 +56,7 @@ export const getGroupEventList = ( q,pageSize,statuss,page,date_up,date_down) =>
         console.log("err when getting group event list : " + err)
     })
 }
+
 export const getGroupEventDetail = (id) =>  {
     return axiosApiInstance.get(BASE_URL.manager.getGEDetail,
         {
@@ -68,6 +85,20 @@ export const getEventDetail = ( id, numberofComments) =>  {
         return res.data
     }).catch(err => {
         console.log("err when getting event detail : " + err)
+    })
+}
+export const getEventDetailForUser = ( id, numberofComments) =>  {
+    return axiosApiInstance.get(BASE_URL.user.getEventDetail,
+        {
+            params : {
+                eventId : id,
+                limitComment : numberofComments
+            }
+    })
+    .then((res) => {
+        return res.data
+    }).catch(err => {
+        console.log("err when getting event detail for user : " + err)
     })
 }
 
@@ -207,5 +238,53 @@ export const deleteEventContent = (id) =>  {
         return res.data
     }).catch(err => {
         console.log("err when delete event content   : " + err)
+    })
+}
+export const regisEvent = (id,type) =>  {
+    return axiosApiInstance.post(BASE_URL.user.regisEvent,
+        {
+            event_id : id,
+            type : type   
+        }
+    )
+    .then((res) => {
+        return res.data
+    }).catch(err => {
+        console.log("err when register event content   : " + err)
+    })
+}
+
+export const getUserList = (searchName,pageSize,status,page, id,type) =>  {
+    return axiosApiInstance.get(BASE_URL.manager.getUserList,{
+        params:
+        {
+            searchname : searchName,
+            limitUser: pageSize,
+            status : status,
+            currentPage : page,
+            eventId : id,
+            type : type   
+        }
+    }
+    )
+    .then((res) => {
+        return res.data
+    }).catch(err => {
+        console.log("err when getting user list in  event    : " + err)
+    })
+}
+export const checkCode = (userCode,eventID) =>  {
+    return axiosApiInstance.get(BASE_URL.manager.checkCode,{
+        params:
+        {
+           userCode : userCode,
+           eventId : eventID
+        }
+    }
+    )
+    .then((res) => {
+        return res.data
+    }).catch(err => {
+        console.log("err when check user code: " + err)
     })
 }

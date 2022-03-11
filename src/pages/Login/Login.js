@@ -41,7 +41,7 @@ const Login = () => {
             role : res.user.role
           })
 
-          localStorage.setItem('token',respone.tokenId)
+          localStorage.setItem('token',res.data)
           if(res.user.role === 'User') {
             history.push('/user')
           } else if (res.user.role === 'Manager') {
@@ -60,7 +60,7 @@ const Login = () => {
     // return <Redirect to='/user' />
   }
   const onFailure = (res) => {
-    console.log('failure in  loggin :' + res)
+    console.log('failure in  loggin :' + JSON.string(res))
   }
 
   const {signIn} = useGoogleLogin({
@@ -68,7 +68,7 @@ const Login = () => {
     onFailure,
     clientId:'14536865243-pqo2h6g02uulf087dovb0bhvp56qldnd.apps.googleusercontent.com',
     // isSignedIn:true,
-    // redirectUri:'/user'
+    redirectUri:'postmessage'
   })
 
 

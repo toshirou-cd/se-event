@@ -160,7 +160,7 @@ const Event = (props) => {
   ];
   
     
-  const { events, loading, totalRow} = useEventSearch(searchName, pageSize, status,page,popup,confirmDialog)
+  const { events, loading, totalRow} = useEventSearch(searchName, pageSize, status,page,popup.isOpen,confirmDialog)
   // const {groupEvents,loadingGE,totalGERow} = useGroupEventSearch(null,10,0,1, popup,confirmDialog)
   
  

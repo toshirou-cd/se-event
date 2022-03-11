@@ -27,6 +27,7 @@ import MyEditor from "../../../components/MyEditor";
 import ClearIcon from '@mui/icons-material/Clear';
 import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog";
 import CreateEventRequestPopup from "../../../components/Manager/CreateEventRequest.jsx/CreateEventRequestPopup";
+import GuestListDialog from "../../../components/user/GuestListDialog/GuestListDialog";
 
 const EventDetail = (props) => {
   const [event, setEvent] = useState({});
@@ -41,6 +42,10 @@ const EventDetail = (props) => {
     isOpen : false,
     title : "",
     subTitle : ""
+  });
+  const [guestListDialog, setGuestListDialog] = useState({
+    isOpen : false,
+    id : null,
   });
 
 
@@ -317,6 +322,13 @@ const EventDetail = (props) => {
           <img style={{width : '700px', height : '300px', objectFit : "contain", borderRadius : "10px"}} className="field" src={`${BASE_URL.images}/${event.event_img_url}`}/>
         }
         <div className="name-field">Detail </div>
+        <div className="field"><Button 
+            onClick={() => setGuestListDialog({
+              isOpen: true,
+              id : eventId
+            })}        
+        >Guest List</Button> </div>
+        <div className="name-field">Detail </div>
         {
           isEdit ?
           <input type="file" className="field" onChange={(e) => setEvent({...event,event_plant_url : e.target.files[0] })}/>
@@ -448,6 +460,7 @@ const EventDetail = (props) => {
       </div>
       }
       <CreateEventRequestPopup popup={popup} setPopup={setPopup} event={event} />
+      <GuestListDialog guestListDialog={guestListDialog} setGuestListDialog={setGuestListDialog} />
     </div>
   );
 };

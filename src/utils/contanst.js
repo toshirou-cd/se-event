@@ -11,5 +11,6 @@ export const getMessageCode = (STATUS_CODE ) => {
     if( STATUS_CODE === 10 ) return "Draft " 
     if( STATUS_CODE === 11 ) return "Closed" 
     if( STATUS_CODE === 12 ) return "Processing" 
+    if( STATUS_CODE === 12 ) return "Attended" 
 
 }

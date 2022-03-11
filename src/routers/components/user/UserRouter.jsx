@@ -1,4 +1,5 @@
 import LandingPage from "../../../pages/LandingPage/LandingPage";
+import UserEvent from "../../../pages/User/UserEvent/UserEvent";
 import RouterRender from "../../RouterRender";
 
 // import Account from "../../../pages/Account/Account";
@@ -54,10 +55,16 @@ const routes= [
     isPrivate: true
   },
   {
-    component: LandingPage,
+    component: UserEvent,
+      path: '/:eventId',
+      isPrivate: true
+    },
+  {
+  component: LandingPage,
     path: '/landingPage',
     isPrivate: true
   },
+  
 ];
 
 const UserRouter = (props) => {

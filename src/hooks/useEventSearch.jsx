@@ -25,6 +25,6 @@ export const  useEventSearch = (searchName , pageSize,status , page,popup,confir
         .catch((err) => {
             console.log('err' + err)
         })
-    }, [searchName, status, pageSize, page,popup.isOpen,confirmDialog])
+    }, [searchName, status, pageSize, page,popup,confirmDialog])
     return {events, loading, totalRow}
 }

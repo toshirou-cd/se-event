@@ -1,6 +1,7 @@
 import React from 'react';
 import UserNavBar from '../user/UserNavBar/UserNavBar'
 import './UserLayout.css'
+import Notification from "../Notification"
 
 const UserLayout = (props) => {
     const { children, routerPath, navItems } = props;
@@ -11,6 +12,7 @@ const UserLayout = (props) => {
      <div className="mt-10">
          {children}
      </div>
+     <Notification />
     </div>
   );
 };
