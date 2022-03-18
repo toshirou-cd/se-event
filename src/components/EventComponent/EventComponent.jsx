@@ -9,7 +9,7 @@ const EventComponent = (props) => {
 
    if( !event) return null
    return (
-    <div className="event-component" onClick={() => <Link  target="_blank" to={"/"}/> } >
+    <div className="event-component"  >
         <img className="img-event" src={`${BASE_URL.images}/${event.event_img_url}`}/>
         <div className='e-name'> {event.event_name}</div>
         <div className='label'> Start from</div>

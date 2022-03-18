@@ -200,7 +200,7 @@ const Event = (props) => {
         })
         dispatch(notifySuccessfully("Delete event successfully !"))
       } else {
-        dispatch(notifyError())
+        dispatch(notifyError(getMessageCode(res.messageCode)))
       }
     })
     setConfirmDialog({

@@ -21,7 +21,7 @@ const Notification = props => {
         <Snackbar
             open={notify.isOpen}
             onClose={() => handleClose()}
-            autoHideDuration={1500}
+            autoHideDuration={3000}
             anchorOrigin={{vertical :'bottom', horizontal:'left'}}
             >
             <Alert 

@@ -1,36 +1,25 @@
-import React, { useEffect, useState } from "react";
 import {
-  Chip,
-  Dialog,
-  DialogContent,
+  Box, Button, Chip,
+  Dialog, DialogActions, DialogContent,
   DialogTitle,
-  Divider,
-  makeStyles,
+  Divider, FormControl, IconButton, makeStyles,
   MenuItem,
-  Select,
-  setOpenPopUp,
-  TextField,
-  Box,
-  FormControl,
-  Button,
-  IconButton,
-  DialogActions
+  Select, TextField
 } from "@material-ui/core";
-import "./CreateContestPopUp.css";
-import {
-  DateTimePicker,
-  DesktopDatePicker,
-  LocalizationProvider,
-} from "@mui/lab";
-import DateAdapter from "@mui/lab/AdapterMoment";
-import moment from "moment";
-import { Stack } from "@mui/material";
-import {  createContest, getPrizesList} from "../../services/ContestService";
-import { getPostDetail } from "../../services/PostService";
 import AddIcon from '@mui/icons-material/Add';
 import CloseIcon from '@mui/icons-material/Close';
+import {
+  DateTimePicker, LocalizationProvider
+} from "@mui/lab";
+import DateAdapter from "@mui/lab/AdapterMoment";
+import { Stack } from "@mui/material";
+import moment from "moment";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { notifyCreateContestSuccessfully, notifyError } from "../../redux/actions/notifyActions";
+import { createContest, getPrizesList } from "../../services/ContestService";
+import "./CreateContestPopUp.css";
+import receiveMessageCode from "../../../utils/messageCode";
 
 const useStyle = makeStyles({
   dialogWrapper: {
@@ -122,10 +111,10 @@ const CreateContestPopUp = (props) => {
         dispatch(notifyCreateContestSuccessfully())
       }
       else {
-        dispatch(notifyError())
+        dispatch(notifyError(receiveMessageCode(res.messageCode)))
       }
     }).catch(error => {
-      dispatch(notifyError())
+      dispatch(notifyError(receiveMessageCode(res.messageCode)))
     })
     // setAwards({
     //   prize_id : '',

@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from 'react'
 import { getUserList } from '../services/event/EventService'
 
-export const  useGuestListSearch = (searchName , pageSize,status , page,id,type,open,checkPopup) => {
+export const  useGuestListSearch = (searchName , pageSize,status , page,id,type,open,checkPopup,confirm) => {
     
     const [users, setUsers] = useState([])
     const [loading, setLoading] = useState(false)
@@ -25,6 +25,6 @@ export const  useGuestListSearch = (searchName , pageSize,status , page,id,type,
         .catch((err) => {
             console.log('err' + err)
         })
-    }, [searchName, status, pageSize, page,open,checkPopup])
+    }, [searchName, status, pageSize, page,open,checkPopup,confirm])
     return {users, loading, totalRow}
 }

@@ -250,7 +250,7 @@ export const regisEvent = (id,type) =>  {
     .then((res) => {
         return res.data
     }).catch(err => {
-        console.log("err when register event content   : " + err)
+        console.log("err when regis user event    : " + err)
     })
 }
 
@@ -286,5 +286,36 @@ export const checkCode = (userCode,eventID) =>  {
         return res.data
     }).catch(err => {
         console.log("err when check user code: " + err)
+    })
+}
+export const removeUserEvent = (user_id,event_id) =>  {
+    return axiosApiInstance.post(BASE_URL.manager.deleteUser,
+        {
+            user_id : user_id,
+            event_id : event_id,
+           type : 0
+        }
+    
+    )
+    .then((res) => {
+        return res.data
+    }).catch(err => {
+        console.log("err when remove user from event : " + err)
+    })
+}
+export const updateUserEvent = (user_id,event_id,status) =>  {
+    return axiosApiInstance.get(BASE_URL.manager.updateUserInEvent,{
+        params : 
+        {
+            userId : user_id,
+            eventId : event_id,
+            status : status
+        }
+    }
+    )
+    .then((res) => {
+        return res.data
+    }).catch(err => {
+        console.log("err when remove user from event : " + err)
     })
 }

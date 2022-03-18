@@ -1,33 +1,33 @@
+import AddIcon from "@mui/icons-material/Add";
+import ClearIcon from '@mui/icons-material/Clear';
+import EditIcon from "@mui/icons-material/Edit";
+import { Button, Divider, IconButton } from "@mui/material";
+import moment from "moment";
 import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useParams } from "react-router-dom";
+import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog";
+import ContentPopup from "../../../components/Manager/ContentPopup";
+import CreateEventRequestPopup from "../../../components/Manager/CreateEventRequest.jsx/CreateEventRequestPopup";
+import MyEditor from "../../../components/MyEditor";
+import GuestListDialog from "../../../components/user/GuestListDialog/GuestListDialog";
+import {
+  notifyError,
+  notifySuccessfully
+} from "../../../redux/actions/notifyActions";
 import {
   createEventContent,
   deleteEventContent,
   getEventDetail,
   getGroupEventDetail,
-  updateEvent,
+  updateEvent
 } from "../../../services/event/EventService";
-import "./EventDetail.css";
-import moment from "moment";
-import BASE_URL from "../../../utils/Url";
 import { getMessageCode } from "../../../utils/contanst";
-import { CKEditor } from "@ckeditor/ckeditor5-react";
-import ClassicEditor from "@ckeditor/ckeditor5-build-classic";
-import EditIcon from "@mui/icons-material/Edit";
+import BASE_URL from "../../../utils/Url";
+import "./EventDetail.css";
+import receiveMessageCode from "../../../utils/messageCode";
+import { TextField } from "@material-ui/core";
 
-import AddIcon from "@mui/icons-material/Add";
-import ContentPopup from "../../../components/Manager/ContentPopup";
-import { Button, IconButton } from "@mui/material";
-import { useDispatch } from "react-redux";
-import {
-  notifyError,
-  notifySuccessfully,
-} from "../../../redux/actions/notifyActions";
-import MyEditor from "../../../components/MyEditor";
-import ClearIcon from '@mui/icons-material/Clear';
-import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog";
-import CreateEventRequestPopup from "../../../components/Manager/CreateEventRequest.jsx/CreateEventRequestPopup";
-import GuestListDialog from "../../../components/user/GuestListDialog/GuestListDialog";
 
 const EventDetail = (props) => {
   const [event, setEvent] = useState({});
@@ -43,13 +43,13 @@ const EventDetail = (props) => {
     title : "",
     subTitle : ""
   });
+  const { eventId } = useParams();
   const [guestListDialog, setGuestListDialog] = useState({
     isOpen : false,
-    id : null,
+    id : eventId,
   });
 
 
-  const { eventId } = useParams();
 
   const downloadFile = (fileName) => {
     window.location.href = BASE_URL.file + "/" + fileName;
@@ -95,7 +95,7 @@ const EventDetail = (props) => {
         dispatch(notifySuccessfully("Added content !"));
         setCreateEvent(!createEvent);
       } else {
-        dispatch(notifyError());
+        dispatch(notifyError(receiveMessageCode(res.messageCode)));
       }
     });
     setLoading(false);
@@ -120,7 +120,7 @@ const EventDetail = (props) => {
       if(res.statusCode === 200) {
         dispatch(notifySuccessfully("Updated Event !"))
       } else {
-        dispatch(notifyError())
+        dispatch(notifyError(receiveMessageCode(res.messageCode)))
       }
     })
     setLoading(false)
@@ -139,7 +139,7 @@ const EventDetail = (props) => {
           isOpen : false
         })
       } else {
-        dispatch(notifyError())
+        dispatch(notifyError(receiveMessageCode(res.messageCode)))
         setConfirmDialog({
           ...confirmDialog,
           isOpen : false
@@ -156,11 +156,13 @@ const EventDetail = (props) => {
       <img src={`${BASE_URL.images}/${event.event_img_url}`} className="img" />
       {/* </div> */}
       <div className="top-container">
-        <input className="title" type="text" value={event.event_name} disabled={!isEdit} 
+        <textarea className="title" type="text" value={event.event_name} disabled={!isEdit} 
         onChange={(e) => setEvent({...event, event_name: e.target.value})}/>
-        <input className="description" type="text" value={event.description} disabled={!isEdit} 
+        <textarea className="description" type="text" value={event.description} disabled={!isEdit} 
         onChange={(e) => setEvent({...event, description: e.target.value})}/>
-        <div className="top-button">
+        {
+          (event.status ===10 ) && 
+          <div className="top-button">
           {!isEdit ? (
             <IconButton onClick={() => setIsEdit(true)}>
               <EditIcon />
@@ -185,7 +187,10 @@ const EventDetail = (props) => {
             </div>
           )}
         </div>
+        }
+       
       </div>
+      <Divider />
       <div className="info-containter">
         <div className="name-field">Date Start</div>
         <div style={{display:"flex", flexDirection:"row",gap:"0",padding:0}}>

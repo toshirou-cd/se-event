@@ -1,29 +1,26 @@
-import React, { useState, useRef } from "react";
-import { useEventRequestSearch } from "../../../hooks/useEventRequestsManagerSearch.jsx";
-import { DataGrid } from "@mui/x-data-grid";
-
-import {
-  Box,
-  Button,
-  FormControl,
-  IconButton,
-  Menu,
-  MenuItem,
-  Select,
-  Stack,
-  Tooltip,
-} from "@mui/material";
-import moment from "moment";
-import { getMessageCode } from "../../../utils/contanst.js";
-import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import { Button } from "@material-ui/core";
 import CheckIcon from "@mui/icons-material/Check";
-import MenuIcon from '@mui/icons-material/Menu';
-import CreateEventRequestPopup from "../../../components/Manager/CreateEventRequest.jsx/CreateEventRequestPopup.jsx";
+import HighlightOffIcon from "@mui/icons-material/HighlightOff";
+import {
+  Box, FormControl,
+  IconButton, MenuItem,
+  Select,
+  Stack
+} from "@mui/material";
+import { DataGrid } from "@mui/x-data-grid";
+import moment from "moment";
+import React, { useRef, useState } from "react";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 import ConfirmDialog from "../../../components/ConfirmDialog/ConfirmDialog.js";
-import { updateRequest } from "../../../services/event/EventRequestService.jsx";
-import { useDispatch, useSelector } from "react-redux";
+import { useEventRequestSearch } from "../../../hooks/useEventRequestsManagerSearch.jsx";
 import { notifyError, notifySuccessfully } from "../../../redux/actions/notifyActions.js";
-const EventRequest = () => {
+import { updateRequest } from "../../../services/event/EventRequestService.jsx";
+import { getMessageCode } from "../../../utils/contanst.js";
+import receiveMessageCode from "../../../utils/messageCode";
+import GroupEventDetail from "../GroupEventDetail/GroupEventDetail.jsx";
+
+const EventRequest = (props) => {
   const [searchName, setsearchName] = useState("");
   const [page, setPage] = useState(1);
   const [pageSize, setPageSize] = useState(5);
@@ -35,6 +32,10 @@ const EventRequest = () => {
   //   isOpen: false,
   //   isGroup: false,
   // });
+  const [popup,setPopup] = useState({
+    isOpen : false,
+    id : ""
+})
   const dispatch = useDispatch()
   const [confirmDialog,setConfirmDialog] = useState({
     isOpen : false,
@@ -51,14 +52,14 @@ const EventRequest = () => {
           isOpen : false
         })
       } else {
-        dispatch(notifyError())
+        dispatch(notifyError(receiveMessageCode(res.messageCode)))
         setConfirmDialog({
           ...confirmDialog,
           isOpen: false
         })
       }
     }).catch(err =>{
-      dispatch(notifyError())
+      dispatch(notifyError(receiveMessageCode(err)))
         setConfirmDialog({
           ...confirmDialog,
           isOpen: false
@@ -77,7 +78,7 @@ const EventRequest = () => {
           isOpen : false
         })
       } else {
-        dispatch(notifyError())
+        dispatch(notifyError(receiveMessageCode(res.messageCode)))
         setConfirmDialog({
           ...confirmDialog,
           isOpen: false
@@ -106,16 +107,11 @@ const EventRequest = () => {
       width: 230,
     },
     {
-      field: "event_id",
-      headerName: "Event Name",
-      width: 150,
-    },
-    {
       field: "groupevent_id",
       headerName: "Group Event",
       width: 100,
       renderCell: (params) => {
-        if (params.row.groupevent_id === null) {
+        if(params.row.groupevent_id === null) {
           return "No";
         } else {
           return "Yes";
@@ -149,6 +145,35 @@ const EventRequest = () => {
           return moment(params.row.date_accept).format("DD-MMM-yyyy");
         }
       },
+    },
+    {
+      field: "event_id",
+      headerName: "Event Detail",
+      width: 150,
+      renderCell : params => {
+        return (
+          params.row.groupevent_id === null ?
+
+          <Link to={`${props.match.url}/${params.row.event_id}`} target="_blank">
+        <Button>
+            Detail
+        </Button>
+        </Link> 
+           :
+          
+
+            <Button 
+            onClick={() => {
+              // handleClickDetail(params.row.id)
+              setPopup({isOpen : true,id:params.row.groupevent_id})
+            }}
+            >
+          Detail
+        </Button>
+          
+        )
+    }
+
     },
     {
       field: "Action",
@@ -331,6 +356,7 @@ const EventRequest = () => {
         />
       </div>
       <ConfirmDialog confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} />
+      <GroupEventDetail popup={popup} setPopup={setPopup} />
     </>
   );
 };

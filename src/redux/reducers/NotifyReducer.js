@@ -1,5 +1,4 @@
-import React from "react";
-import { CLOSE_NOTIFY, FORCE_LOG_OUT, NOTIFY_ACTIVE_CONTEST_SUCCESSFULLY, NOTIFY_CREATE_CONTEST_SUCCESSFULLY, NOTIFY_DELETE_SUCCESSFULLY, NOTIFY_ERROR, NOTIFY_FINISH_CONTEST_SUCCESSFULLY, NOTIFY_SUCCESSFULLY, NOTIFY_UPDATE_SUCCESSFULLY } from "../../utils/types";
+import { CLOSE_NOTIFY, FORCE_LOG_OUT, NOTIFY_DELETE_SUCCESSFULLY, NOTIFY_ERROR, NOTIFY_SUCCESSFULLY } from "../../utils/types";
 
 const initialState = {
   isOpen: false,
@@ -28,10 +27,9 @@ export const NotifyReducer = (state = initialState, action) => {
     }
 
     case NOTIFY_ERROR : 
-      console.log('toi day roi ne')
       return {
         isOpen : true,
-        message : 'Action failure',
+        message : action.payload,
         type :'error'
     }
     case NOTIFY_SUCCESSFULLY : 

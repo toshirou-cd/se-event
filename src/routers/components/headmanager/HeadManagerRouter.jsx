@@ -23,18 +23,6 @@ import RouterRender from "../../RouterRender";
 // import ReportDetail from "../../../pages/ReportDetail/ReportDetail";
 
 export const headManagerNavItems = [  
-    {
-        title: 'Event',
-        path: 'event',
-      },
-      {
-        title: 'Group Event',
-        path: 'groupevent',
-      },
-      {
-        title: 'Guest List',
-        path: 'eventlist',
-      },
       {
         title: 'Event Request',
         path: 'eventrequest',
@@ -66,6 +54,11 @@ const routes= [
   {
     component: GroupEvent,
     path: '/groupevent',
+    isPrivate: true
+  },
+  {
+    component: EventDetail,
+    path: '/eventrequest/:eventId',
     isPrivate: true
   },
   {

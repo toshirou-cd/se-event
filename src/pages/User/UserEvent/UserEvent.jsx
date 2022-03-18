@@ -7,11 +7,14 @@ import { Button } from '@mui/material';
 import ConfirmDialog from '../../../components/ConfirmDialog/ConfirmDialog'
 import {useDispatch} from 'react-redux'
 import { notifyError, notifySuccessfully } from '../../../redux/actions/notifyActions';
-
+import receiveMessageCode from "../../../utils/messageCode";
+import { TextField } from '@material-ui/core';
+import moment from 'moment';
 
 const UserEvent = () => {
     const [eventDetail,setEventDetail] = useState({})
     const [loading,setLoading] = useState(false)
+    const [regis,setRegis] = useState(eventDetail.isCare_Register === 2 ? true : false)
     const [confirmDialog,setConfirmDialog] = useState({
         isOpen:false,
         title : "",
@@ -26,7 +29,7 @@ const UserEvent = () => {
                 setEventDetail(null)
             }
         })
-    },[])
+    },[confirmDialog.isOpen])
 
     const dispatch = useDispatch()
 
@@ -38,6 +41,7 @@ const UserEvent = () => {
                     ...confirmDialog,
                     isOpen : false
                 })
+                setRegis(true)
                 dispatch(notifySuccessfully("Regised Event Successfully !!!"))
 
             } else {
@@ -45,14 +49,14 @@ const UserEvent = () => {
                     ...confirmDialog,
                     isOpen : false
                 })
-                dispatch(notifyError())
+                dispatch(notifyError(receiveMessageCode(res.messageCode)))
             }
-        }).catch(() => {
+        }).catch((err) => {
             setConfirmDialog({
                 ...confirmDialog,
                 isOpen : false
             })
-            dispatch(notifyError())
+            dispatch(notifyError(receiveMessageCode(err)))
         })
         setLoading(false)
     }
@@ -63,24 +67,39 @@ const UserEvent = () => {
   return (
     <div className='user-event-page'>
         <div className="ue-content-containter">
+            <div className="header">
+                    {eventDetail.event_name}
+            </div>
+            <div style={{fontWeigth:"500",color:'red'}}>
+                  Open register:  * {moment(eventDetail.date_start_join).format("DD-MMM-YYYY HH:mm")} - {moment(eventDetail.date_end_join).format("DD-MMM-YYYY HH:mm")}
+                </div>
             <div className="ue-content">
             {eventDetail.contents && eventDetail.contents.map((co) => {
                 return parse(co.content)
             })}
             </div>
             <div className="regis-button">
-                <Button variant='contained' color='primary' 
+
+                {
+                    eventDetail.isCare_Register === 2 ? 
+                    <Button variant="standard" color='primary' disabled={!regis}>
+                       You 've registed this event. Please be on time !
+                    </Button>
+                     :
+                    <Button variant='contained' color='primary' 
                     onClick={() => {
                         setConfirmDialog({
-                            isOpen : true,
+                            isOpen : true, 
                             title : "Register this event ?",
                             subTitle : "Your attend code will be sent to your mail. You will need it at the entrance. Enjoy this event !",
                             onConfirm : () => handleRegisEvetnt()
                         })
                     }}
                     > 
-                    Regis now !!!
+                    Register now !!!
                 </Button>
+                }
+               
                 </div>
         </div>
         <ConfirmDialog confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog}/>

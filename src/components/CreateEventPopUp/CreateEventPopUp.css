@@ -1,7 +1,9 @@
 .content-wrapper{
     display: grid;
     grid-template-columns: 100px 150px 150px 50px 150px 150px;
-    gap: 2rem;
+    grid-auto-rows: auto;
+    column-gap: 2rem;
+    row-gap: 1.5rem;
     align-items: center;
 
 }
@@ -10,6 +12,18 @@
     grid-column-end: 7;
     width: 100%;
 }
-.label {
+.label {    
     font-weight: 500;
+}
+
+.note {
+    grid-column-start: 1;
+    grid-column-end: 7;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    color: red;
+    font-size: 0.75rem;
+    padding: 2px;
+    margin-left: 2rem;
+    display: flex;
+    flex-direction: column;
 }

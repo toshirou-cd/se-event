@@ -26,12 +26,18 @@
     font-size: 2rem;
     font-weight: 500;
     background-color: white;
+    width: 100%;
     
 }
 .description {
-    font-size: 1.5rem;
-    font-weight: 300;
+    font-size: 1.25rem;
+    font-weight: 400;
     background-color: white;
+    width: 100%;
+    height: auto;
+    overflow: visible;
+    word-break: break-word;
+    color: gray
 }
 .info-containter{
     display: grid;

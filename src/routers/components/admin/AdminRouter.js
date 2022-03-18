@@ -1,4 +1,5 @@
 import Home from "../../../pages/Admin/Home";
+import Template from "../../../pages/Admin/Template/Template";
 import RouterRender from "../../RouterRender";
 
 export const adminNavItems = [
@@ -7,8 +8,8 @@ export const adminNavItems = [
     path : 'accounts'
   },
   {
-    title : "Manage Role",
-    path : "roles"
+    title : "Template Upload",
+    path : "template"
   }
 ]
 
@@ -26,8 +27,8 @@ const routes= [
       isPrivate: true
     },
     {
-      component: Home,
-      path: '/roles',
+      component: Template,
+      path: '/template',
       isPrivate: true
     },
   ];

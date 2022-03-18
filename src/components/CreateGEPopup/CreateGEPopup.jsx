@@ -11,6 +11,7 @@ import {
 import { createGEvent } from "../../services/event/EventService";
 import { useDispatch } from "react-redux";
 import { notifyError, notifySuccessfully } from "../../redux/actions/notifyActions";
+import { getMessageCode } from "../../utils/contanst";
 const CreateGEPopup = (props) => {
   const { createGEPopup, setCreateGEPopup } = props;
   const [loading, setLoading] = useState(false);
@@ -26,7 +27,7 @@ const CreateGEPopup = (props) => {
               dispatch(notifySuccessfully("Created Group Event !"))
               setCreateGEPopup({...createGEPopup,isOpen:false})
           } else {
-              dispatch(notifyError())
+              dispatch(notifyError(getMessageCode(res.messageCode)))
               setCreateGEPopup({...createGEPopup,isOpen:false})
           }
       })

@@ -1,5 +1,6 @@
 import React from 'react'
 import SideBar from '../SideBar'
+import Notification from '../Notification'
 
 const AdminLayout = (props) => {
     const { children, routerPath, navItems,title } = props;
@@ -9,6 +10,7 @@ const AdminLayout = (props) => {
     <div className="mt-16 ml-64  w-full p-5">
         {children}
     </div>
+    <Notification />
    </div>       
   )
 }

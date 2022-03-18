@@ -1,10 +1,6 @@
-import { NOTIFY_DELETE_SUCCESSFULLY, CLOSE_NOTIFY,FORCE_LOG_OUT, NOTIFY_ERROR,
-     NOTIFY_UPDATE_SUCCESSFULLY, 
-     NOTIFY_CREATE_CONTEST_SUCCESSFULLY,
-     NOTIFY_SUCCESSFULLY} from "../../utils/types";
+import { CLOSE_NOTIFY, FORCE_LOG_OUT, NOTIFY_CREATE_CONTEST_SUCCESSFULLY, NOTIFY_DELETE_SUCCESSFULLY, NOTIFY_ERROR, NOTIFY_SUCCESSFULLY, NOTIFY_UPDATE_SUCCESSFULLY } from "../../utils/types";
 
 
-import React from 'react'
 
 export const notifyDeleteSucessFully = () => {
     return {
@@ -21,9 +17,10 @@ export const forceLogoutSuccess = () => {
         type : FORCE_LOG_OUT
     }
 }
-export const notifyError = () => {
+export const notifyError = (message) => {
     return {
-        type : NOTIFY_ERROR
+        type : NOTIFY_ERROR,
+        payload : message
     }
 }
 export const notifyUpdateSucessfully = () => {

@@ -9,12 +9,15 @@
     background-color: rgba(255, 255, 255, 0.8);
     color: #000;
     width: 80%;
-    height: 100%;
+    height: auto;
     min-height: 100vh;
     padding: 4rem;
     display: flex;
     justify-content:center ;
     position: relative;
+    overflow:auto; 
+    display: flex;
+    flex-direction: column;
 }   
 .ue-content{
     margin-top: 10px;
@@ -23,4 +26,8 @@
     position: absolute;
     top:1rem;
     right: 1rem;
+}
+.header{
+    font-size: 2rem;
+    font-weight: 500;
 }

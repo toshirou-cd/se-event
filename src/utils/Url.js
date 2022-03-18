@@ -27,7 +27,9 @@ const BASE_URL = {
         getEventReqDetail : URL_API + 'eventrequests/geteventrequestdetail',
         updateEventRequest : URL_API + 'eventrequests/updateeventrequest',
         getUserList : URL_API + 'userevents/getlistuserevent',
-        checkCode : URL_API + 'userevents/checkusercode'
+        checkCode : URL_API + 'userevents/checkusercode',
+        deleteUser : URL_API + 'userevents/deleteuserevent',
+        updateUserInEvent : URL_API + 'userevents/updateuserevent'
     },
     user : {
         getEventList : URL_API + 'events/getlisteventpresent',
@@ -39,7 +41,8 @@ const BASE_URL = {
     images : URL_API + 'images/getimgfrompost',
     file : URL_API + 'images/getfilefrompost',
     planFileTemplate : URL_API + 'images/downloadfile',
-    uploadImage : URL_API + 'images/uploadImg'
+    uploadImage : URL_API + 'images/uploadImg',
+    uploadFile : URL_API + 'images/updateFile'
 
 }
 

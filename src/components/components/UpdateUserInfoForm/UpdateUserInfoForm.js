@@ -5,6 +5,7 @@ import { LoadingButton } from '@mui/lab'
 import { updateUserInfo } from '../../services/account/account'
 import { notifyError, notifyUpdateSucessfully } from '../../redux/actions/notifyActions'
 import { useDispatch } from 'react-redux'
+import receiveMessageCode from "../../../utils/messageCode";
 
 const UpdateUserInfoForm = props => {
     const {userID, openPopUp , setOpenPopUp,propsemail,propsphone} = props
@@ -20,11 +21,11 @@ const UpdateUserInfoForm = props => {
     /// update userInfo 
     const handleUpdateUserInfo = () => {
         setLoading(true)
-        updateUserInfo(userID,updateInfo.email, updateInfo.phone).then(data =>{
-            if(data === 200) {
+        updateUserInfo(userID,updateInfo.email, updateInfo.phone).then(res =>{
+            if(res.statusCode === 200) {
                 dispatch(notifyUpdateSucessfully())
             } else {
-                dispatch(notifyError())
+                dispatch(notifyError(receiveMessageCode(res.messageCode)))
             }
             setLoading(false)
             setOpenPopUp(false)

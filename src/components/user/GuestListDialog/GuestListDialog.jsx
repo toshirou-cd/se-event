@@ -1,4 +1,4 @@
-import { DialogContent } from "@material-ui/core";
+import { DialogContent, IconButton } from "@material-ui/core";
 import { Button, Dialog, DialogTitle, Divider, FormControl, MenuItem, Select, Stack } from "@mui/material";
 import { Box } from "@mui/system";
 import { DataGrid } from "@mui/x-data-grid";
@@ -6,7 +6,13 @@ import moment from "moment";
 import React, {useState, useRef } from "react";
 import { useGuestListSearch } from "../../../hooks/useGuestListSearch";
 import { getMessageCode } from "../../../utils/contanst";
+import ConfirmDialog from "../../ConfirmDialog/ConfirmDialog";
 import CheckPopup from "../CheckPopup/CheckPopup";
+import ClearIcon from '@mui/icons-material/Clear';
+import { removeUserEvent } from "../../../services/event/EventService";
+import { useDispatch } from "react-redux";
+import { notifyError, notifySuccessfully } from "../../../redux/actions/notifyActions";
+import receiveMessageCode from "../../../utils/messageCode";
 
 const GuestListDialog = (props) => {
   const { guestListDialog, setGuestListDialog } = props;
@@ -21,6 +27,11 @@ const GuestListDialog = (props) => {
   const [pageSizeOption, setPageSizeOption] = useState([5, 10, 15]);
   const [searchInput, setSearchInput] = useState("");
   const typingTimeoutRef = useRef(null);
+  const [confirmDialog,setConfirmDialog] = useState({
+    isOpen : false,
+    titte : "",
+    subTitle : "",
+  })
 
   const columns = [
     {
@@ -34,7 +45,7 @@ const GuestListDialog = (props) => {
     {
       field: "user_name",
       headerName: "User Name",
-      width: 300,
+      width: 280,
       renderCell : params => {
         return (
           params.row.user.user_name
@@ -44,7 +55,7 @@ const GuestListDialog = (props) => {
     {
       field: "user_email",
       headerName: "User Email",
-      width: 250,
+      width: 230,
       renderCell : params => {
         return (
           params.row.user.user_email
@@ -82,11 +93,29 @@ const GuestListDialog = (props) => {
           )
       } 
     },
+    {
+      field: "",
+      headerName: "",
+      width: 50,
+      renderCell : (params) => {
+          return (
+             <IconButton onClick={() => setConfirmDialog({
+               isOpen : true,
+               title : "Are you sure you want to remove this user ?",
+               subTitle  : "",
+               onConfirm : () => removeUser(params.row.user_id)
+             })}>
+                <ClearIcon color="error"/>
+             </IconButton>
+          )
+      } 
+    },
     
   ];
 
 
-  const { users, loading, totalRow} = useGuestListSearch(searchName, pageSize, null,page,guestListDialog.id,2,guestListDialog.isOpen,checkPopup.isOpen)
+  const { users, loading, totalRow} = useGuestListSearch(searchName, pageSize, null,page,guestListDialog.id,2,guestListDialog.isOpen,checkPopup.isOpen,
+      confirmDialog.isOpen)
 
   // handle search 
   const handleSearchNameChange = (e) => {
@@ -107,6 +136,25 @@ const GuestListDialog = (props) => {
   //handle select status 
   const handleSelectStatus = (e) => {
     setStatus(e.target.value)
+  }
+  const dispatch = useDispatch()
+  //handle remove user 
+  const removeUser = (id) => {
+    if(!users || users === null ) return;
+    removeUserEvent(id,users[0].event_id).then(res => {
+      if(res.statusCode === 200) {
+        dispatch(notifySuccessfully("Removed user !"))
+        setConfirmDialog({
+          ...confirmDialog,
+          isOpen:false
+        })
+      } else {
+        dispatch(notifyError(receiveMessageCode(res.messageCode)))
+      }
+      
+    }).catch(err => {
+      console.log('err :' + err)
+    })
   }
   
   
@@ -143,7 +191,7 @@ const GuestListDialog = (props) => {
     }}
   >
     <div className="header">
-      <div className="title-show"> Showing events by : </div>
+      <div className="title-show"> Showing users by : </div>
       <div className="tool">
       <Box sx={{
           maxWidth : 100,
@@ -164,10 +212,8 @@ const GuestListDialog = (props) => {
                   >
                   <MenuItem value={0}> All</MenuItem>
                   <MenuItem value={3}> Present</MenuItem>
-                  <MenuItem value={4}> Deleted</MenuItem>
-                  <MenuItem value={12}>Processing</MenuItem>
-                  <MenuItem value={11}>Closed</MenuItem>
-                  <MenuItem value={10}>Draft</MenuItem>
+                  <MenuItem value={11}>Attended</MenuItem>
+                  <MenuItem value={4}>Deleted</MenuItem>
                   {/* <MenuItem value={5}> Inactivate</MenuItem>
                   <MenuItem value={9}> Blocking</MenuItem> */}
               </Select>
@@ -231,6 +277,7 @@ const GuestListDialog = (props) => {
       </DialogContent>
     </Dialog>
     <CheckPopup setCheckPopup={setCheckPopup} checkPopup={checkPopup}/> 
+    <ConfirmDialog confirmDialog={confirmDialog} setConfirmDialog={setConfirmDialog} />
     </>
 
   );

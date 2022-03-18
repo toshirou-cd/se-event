@@ -5,7 +5,8 @@ const user = JSON.parse(localStorage.getItem("user")|| "{}")
 
 const tmpUser = {
     email: user.email,
-    userName : user.userName
+    userName : user.userName,
+    role : user.role
 }
 
 // const tmpUser = {avatar:'',phone:'', role:'', email:'' , userName:''}

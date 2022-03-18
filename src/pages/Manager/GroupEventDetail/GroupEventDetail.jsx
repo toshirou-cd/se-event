@@ -89,13 +89,17 @@ const GroupEventDetail = (props) => {
         </div>
       </DialogContent>
       <DialogActions>
-            <Button
+        {
+          (groupEvent.events !== null && groupEvent.status === 10 ) &&
+          <Button
               variant="contained"
               onClick={() => setReqPopup({...reqPopup,isOpen: true})}
-              disabled={(groupEvent.events === null || groupEvent.status !== 11) ? true : false}
+              // disabled={ ? true : false}
               >
               Send Request
             </Button>
+        }
+            
       </DialogActions>
     </Dialog>
     <CreateEventRequestPopup popup={reqPopup} setPopup={setReqPopup} event={groupEvent}/>

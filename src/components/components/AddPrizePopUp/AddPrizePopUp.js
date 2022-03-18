@@ -15,7 +15,7 @@ import AddBoxIcon from '@mui/icons-material/AddBox';
 import { addPrize } from "../../services/ContestService";
 import { useDispatch } from "react-redux";
 import { notifyError, notifySuccessfully } from "../../redux/actions/notifyActions";
-
+import receiveMessageCode from "../../../utils/messageCode";
 
 const useStyles = makeStyles(theme => ({
     dialog : {
@@ -46,7 +46,7 @@ const AddPrizePopUp = (props) => {
             setAddPrizePopUp({...addPrizePopUp, isOpen: false})
         }
         else {
-            dispatch(notifyError())
+            dispatch(notifyError(receiveMessageCode(res.messageCode)))
         }
         setAddPrizePopUp({...addPrizePopUp, isOpen: false})
     }).catch(err => {
