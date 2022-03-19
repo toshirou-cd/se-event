@@ -33,7 +33,7 @@ const routes= [
   {
     path: '/',
     exact: true,
-    redirectTo: '/event',
+    redirectTo: '/eventrequest',
     isPrivate: true
   },
   {

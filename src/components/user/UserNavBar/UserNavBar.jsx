@@ -28,7 +28,7 @@ const UserNavBar = () => {
     <div class="basis-1/5 ml-6">FPT Event</div>
     <div class="basis-3/5 flex flex-grow justify-center space-x-12">
       <div>EVENTS</div>
-      <div>RESGISTED EVENT</div>
+      {/* <div>RESGISTED EVENT</div> */}
       <div>CONTACT</div>
     </div>
     <div class="basis-1/5 mr-6 flex justify-end">

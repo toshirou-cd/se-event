@@ -4,7 +4,8 @@ import "./CreateEventRequest.css";
 import { useDispatch } from "react-redux";
 import { addEventRequeset, addGroupEventRequeset } from "../../../services/event/EventRequestService";
 import { notifyError, notifySuccessfully } from "../../../redux/actions/notifyActions";
-import { getMessageCode } from "../../../utils/contanst";
+import receiveMessageCode from "../../../utils/messageCode";
+
 
 const CreateEventRequestPopup = (props) => {
   const { popup, setPopup,event } = props;
@@ -36,7 +37,7 @@ const CreateEventRequestPopup = (props) => {
                 dispatch(notifySuccessfully("Sended request !"))
                 setPopup({...popup,isOpen:false})
             } else {
-                dispatch(notifyError(getMessageCode(res.messageCode)))
+                dispatch(notifyError(receiveMessageCode(res.messageCode)))
                 setPopup({...popup,isOpen:false})
                 
             }
@@ -47,7 +48,7 @@ const CreateEventRequestPopup = (props) => {
             dispatch(notifySuccessfully("Sended request !"))
             setPopup({...popup,isOpen:false})
         } else {
-            dispatch(notifyError(getMessageCode(res.messageCode)))
+            dispatch(notifyError(receiveMessageCode(res.messageCode)))
             setPopup({...popup,isOpen:false})
             
         }
