@@ -35,6 +35,8 @@ const receiveMessageCode = (messageCode) => {
       return "Two events are too close to each other";
     case "F112":
       return "File type is not excel";
+    case "F114":
+      return "Image file type is not valid ";
     case "EV111":
       return "Event not found";
     case "EV112":
