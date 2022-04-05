@@ -153,6 +153,9 @@ const CreateEventPopUp = (props) => {
           });
           dispatch(notifySuccessfully("Created Event Success "));
           setPopup({ ...popup, isOpen: false });
+        } else if(res.messageCode === 'F112'){
+          dispatch(notifySuccessfully(receiveMessageCode(res.messageCode)));
+          setPopup({ ...popup, isOpen: false });
         } else {
           dispatch(notifyError(receiveMessageCode(res.messageCode)));
           // setPopup({ ...popup, isOpen: false });

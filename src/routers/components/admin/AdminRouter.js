@@ -28,7 +28,7 @@ const routes= [
     },
     {
       component: Template,
-      path: '/template  ',
+      path: '/template',
       isPrivate: true
     },
   ];
