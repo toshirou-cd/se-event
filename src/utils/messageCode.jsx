@@ -57,6 +57,8 @@ const receiveMessageCode = (messageCode) => {
       return "Event status must be crafted to perform this action";
     case "EV121":
       return "Event not started. Time for enter is 1 hour before event start ";
+    case "EV122":
+      return "Event restricted. You can not subcribe this event while you havent join previous event ! ";
     case "ER111":
       return "Event request exist";
     case "ER112":
