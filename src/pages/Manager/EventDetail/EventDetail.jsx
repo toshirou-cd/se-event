@@ -258,7 +258,7 @@ const EventDetail = (props) => {
         <input
           className="field"
           type="time"
-          value={moment(event.date_start_joint).format("HH:mm")}
+          value={moment(event.date_start_join).format("HH:mm:ss")}
           onChange={(e) =>
             setEvent( {
               ...event, date_start_join : moment(`${moment(event.date_start_join).format("yyyy-MM-DD")},${e.target.value}`).format("yyyy-MM-DD, HH:mm")  

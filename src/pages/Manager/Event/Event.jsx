@@ -1,22 +1,21 @@
-import { Box, Button, FormControl, IconButton, MenuItem, Select, Stack, Tooltip } from '@mui/material'
+import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline'
+import { Box, Button, FormControl, IconButton, MenuItem, Select, Stack } from '@mui/material'
 import { DataGrid } from '@mui/x-data-grid'
-import React, { useEffect , useState, useRef} from 'react'
-import { useEventSearch } from '../../../hooks/useEventSearch'
 import moment from "moment"
-import { getMessageCode } from '../../../utils/contanst'
-import './Event.css'
-import SearchIcon from '@mui/icons-material/Search';
-import { Link } from 'react-router-dom'
-import { PopperUnstyled } from '@mui/base'
-import CreateEventPopUp from '../../../components/CreateEventPopUp/CreateEventPopUp'
-
-import RemoveCircleOutlineIcon from '@mui/icons-material/RemoveCircleOutline';
-import { deleteEvent, deleteGEvent, getGroupEventList } from '../../../services/event/EventService'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { notifyError, notifySuccessfully } from '../../../redux/actions/notifyActions'
+import { Link } from 'react-router-dom'
 import ConfirmDialog from '../../../components/ConfirmDialog/ConfirmDialog'
-import { useGroupEventSearch } from '../../../hooks/useGroupEventSearch'
-import CreateGEPopup from '../../../components/CreateGEPopup/CreateGEPopup'
+import CreateEventPopUp from '../../../components/CreateEventPopUp/CreateEventPopUp'
+import { useEventSearch } from '../../../hooks/useEventSearch'
+import { notifyError, notifySuccessfully } from '../../../redux/actions/notifyActions'
+import { deleteEvent, getGroupEventList } from '../../../services/event/EventService'
+import './Event.css'
+import receiveMessageCode from "../../../utils/messageCode";
+import { getMessageCode } from '../../../utils/contanst'
+
+
+
 
 
 const Event = (props) => {
@@ -200,7 +199,7 @@ const Event = (props) => {
         })
         dispatch(notifySuccessfully("Delete event successfully !"))
       } else {
-        dispatch(notifyError(getMessageCode(res.messageCode)))
+        dispatch(notifyError(receiveMessageCode(res.messageCode)))
       }
     })
     setConfirmDialog({

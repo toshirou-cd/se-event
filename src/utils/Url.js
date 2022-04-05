@@ -42,7 +42,7 @@ const BASE_URL = {
     file : URL_API + 'images/getfilefrompost',
     planFileTemplate : URL_API + 'images/downloadfile',
     uploadImage : URL_API + 'images/uploadImg',
-    uploadFile : URL_API + 'images/updateFile'
+    uploadFile : URL_API + 'images/updateFile'  
 
 }
 
