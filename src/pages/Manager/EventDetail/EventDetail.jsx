@@ -326,7 +326,7 @@ const EventDetail = (props) => {
           :
           <img style={{width : '700px', height : '300px', objectFit : "contain", borderRadius : "10px"}} className="field" src={`${BASE_URL.images}/${event.event_img_url}`}/>
         }
-        <div className="name-field">Detail </div>
+        <div className="name-field">Guest List </div>
         <div className="field"><Button 
             onClick={() => setGuestListDialog({
               isOpen: true,
@@ -338,8 +338,10 @@ const EventDetail = (props) => {
           isEdit ?
           <input type="file" className="field" onChange={(e) => setEvent({...event,event_plant_url : e.target.files[0] })}/>
           :
-
-        <a
+          <>
+          {
+            event.event_plant_url? 
+            <a
           className="field"
           style={{ border: "0.5px solid #f0f0f0", cursor: "pointer" }}
           // onClick={() => downloadFile(event.event_plant_url)}
@@ -348,7 +350,11 @@ const EventDetail = (props) => {
           download
         >
           {event.event_plant_url}
-        </a>
+        </a> :
+        "null"
+          }
+          </>
+        
         }
         <div className="name-field">Event content : </div>
         <div style={{ display: "flex", flexDirection: "row", gap: "1rem",alignItems:"center"}}>
