@@ -336,11 +336,12 @@ const EventDetail = (props) => {
         <div className="name-field">Detail </div>
         {
           isEdit ?
-          <input type="file" className="field" onChange={(e) => setEvent({...event,event_plant_url : e.target.files[0] })}/>
+          <input type="file" className="field" onChange={(e) => setEvent({...event,event_plant_url : e.target.files[0] })} 
+          accept=".xlsx, .csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"/>
           :
           <>
           {
-            event.event_plant_url? 
+            typeof event.event_plant_url === "string" ? 
             <a
           className="field"
           style={{ border: "0.5px solid #f0f0f0", cursor: "pointer" }}
@@ -351,7 +352,7 @@ const EventDetail = (props) => {
         >
           {event.event_plant_url}
         </a> :
-        "null"
+        "-"
           }
           </>
         

@@ -31,10 +31,10 @@ export const managerNavItems = [
         title: 'Group Event',
         path: 'groupevent',
       },
-      {
-        title: 'Guest List',
-        path: 'eventlist',
-      },
+      // {
+      //   title: 'Guest List',
+      //   path: 'eventlist',
+      // },
       {
         title: 'Event Request',
         path: 'eventrequest',

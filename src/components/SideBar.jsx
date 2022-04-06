@@ -1,6 +1,6 @@
 import React from 'react'
 import { useGoogleLogout } from 'react-google-login';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import { logout } from '../redux/actions/authActions';
 
@@ -8,6 +8,7 @@ const SideBar = (props) => {
   const {items, routerPath,title} = props
     const history = useHistory()
     const dispatch = useDispatch()
+    const user = useSelector(state => state.AuthReducer)
     const onLogoutSuccess = () => {
       console.log('log out ok ')
       dispatch(logout())
@@ -51,7 +52,7 @@ const SideBar = (props) => {
   </div>
   <div className="absolute px-4 top-0 h-14 border-b-slate-50 border-2 w-full z-0  flex justify-end py-2">
       <div class="flex justify-center items-center p-2">
-          NGUYEN HOANG ANH
+          {user.user.userName}
       </div>
       <button class="flex justify-center items-center p-2 bg-white rounded-sm"
             onClick={signOut}>
