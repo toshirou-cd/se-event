@@ -444,15 +444,20 @@ const EventDetail = (props) => {
             </div>
           </div>
         ) : (
+          <>
+          {
+            event.contents === null &&
           <div
             className="add-content-button"
             onClick={() => {
               setContent("");
               setCreateEvent(true);
             }}
-          >
+            >
             <AddIcon /> Create Event Content
           </div>
+          }
+            </>
         )}
       </div>
       <ContentPopup
